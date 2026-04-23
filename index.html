@@ -8,13 +8,22 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;background:#f5f5f0;color:#1a1a1a}
 .wrap{max-width:680px;margin:0 auto;padding:1.5rem 1rem}
-.hero{text-align:center;padding:2rem 1rem;background:#fff;border-radius:16px;margin-bottom:1.5rem;border:1px solid #e8e8e0}
+.hero{text-align:center;padding:2rem 1rem;background:#fff;border-radius:16px;margin-bottom:1rem;border:1px solid #e8e8e0}
 .badge{display:inline-block;font-size:11px;font-weight:500;padding:4px 12px;border-radius:20px;background:#E1F5EE;color:#085041;margin-bottom:12px}
 .hero h1{font-size:22px;font-weight:700;line-height:1.4;margin-bottom:8px;color:#1a1a1a}
 .hero p{font-size:14px;color:#666;line-height:1.7}
 .steps{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:14px}
 .steps span{font-size:11px;color:#555;background:#f5f5f0;border:1px solid #e0e0d8;padding:4px 10px;border-radius:20px}
 .steps i{font-size:11px;color:#aaa;font-style:normal;line-height:2}
+
+/* 안내 박스 */
+.info-box{background:#E1F5EE;border:1px solid #9FE1CB;border-radius:12px;padding:14px 16px;margin-bottom:1rem}
+.info-box p{font-size:12px;color:#085041;line-height:1.9}
+.info-box strong{font-weight:600}
+
+/* 세액공제 배지 */
+.tax-badge{background:#085041;color:#fff;display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;margin-bottom:8px}
+
 .lbl{font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:1.5rem}
 .card{background:#fff;border:1px solid #e8e8e0;border-radius:14px;overflow:hidden;cursor:pointer;transition:all .15s}
@@ -55,15 +64,29 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;back
 .inp-label{font-size:12px;font-weight:500;color:#555;margin-bottom:5px;display:block}
 .inp{width:100%;padding:10px 12px;border:1px solid #d0d0c8;border-radius:8px;font-size:14px;font-family:inherit;margin-bottom:12px;color:#1a1a1a}
 .inp:focus{outline:none;border-color:#1D9E75}
+
+/* 개인정보 동의 */
+.privacy-box{background:#f9f9f5;border:1px solid #e0e0d8;border-radius:10px;padding:12px 14px;margin-bottom:14px}
+.privacy-check{display:flex;align-items:flex-start;gap:10px;cursor:pointer}
+.privacy-check input{width:18px;height:18px;accent-color:#1D9E75;cursor:pointer;margin-top:2px;flex-shrink:0}
+.privacy-check-text{font-size:12px;color:#444;line-height:1.7}
+.privacy-detail{font-size:11px;color:#888;margin-top:6px;line-height:1.7;padding-left:28px}
+.privacy-link{color:#1D9E75;text-decoration:underline;cursor:pointer}
+
 .submit-btn{display:block;width:100%;background:#085041;color:#fff;font-size:14px;font-weight:600;padding:13px;border-radius:10px;border:none;cursor:pointer;font-family:inherit}
 .submit-btn:hover{background:#1D9E75}
-.submit-btn:disabled{opacity:.6;cursor:not-allowed}
+.submit-btn:disabled{opacity:.6;cursor:not-allowed;background:#aaa}
 .done-box{background:#E1F5EE;border:2px solid #1D9E75;border-radius:14px;padding:2rem;text-align:center;margin-bottom:1.5rem}
 .done-box h3{font-size:18px;font-weight:700;color:#085041;margin-bottom:8px}
 .done-box p{font-size:13px;color:#0F6E56;line-height:1.7}
 .notice{background:#fff;border:1px solid #e8e8e0;border-radius:10px;padding:14px 16px;margin-top:1rem}
 .notice p{font-size:12px;color:#888;line-height:1.9}
 .loading{text-align:center;padding:2rem;color:#888;font-size:14px}
+
+/* 푸터 */
+.footer{margin-top:2rem;padding:1.5rem 0;border-top:1px solid #e8e8e0;text-align:center}
+.footer p{font-size:11px;color:#aaa;line-height:1.9}
+.footer a{color:#888;text-decoration:underline;cursor:pointer}
 
 /* 팝업 */
 .modal-bg{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:100;align-items:center;justify-content:center}
@@ -80,6 +103,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;back
 .modal-pick{width:100%;padding:11px;border:none;border-radius:8px;background:#1D9E75;color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
 .modal-pick.on{background:#085041}
 .modal-pick:disabled{opacity:.5;cursor:not-allowed;background:#aaa}
+
+/* 개인정보처리방침 팝업 */
+.privacy-modal-bg{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:200;align-items:center;justify-content:center}
+.privacy-modal-bg.show{display:flex}
+.privacy-modal{background:#fff;border-radius:16px;max-width:420px;width:92%;max-height:80vh;overflow-y:auto;padding:1.5rem}
+.privacy-modal h2{font-size:16px;font-weight:700;margin-bottom:16px;color:#1a1a1a}
+.privacy-modal h3{font-size:13px;font-weight:600;margin:14px 0 6px;color:#333}
+.privacy-modal p{font-size:12px;color:#555;line-height:1.8;margin-bottom:8px}
+.privacy-modal table{width:100%;border-collapse:collapse;font-size:11px;margin-bottom:12px}
+.privacy-modal td,.privacy-modal th{border:1px solid #e0e0d8;padding:6px 8px;text-align:left}
+.privacy-modal th{background:#f5f5f0;font-weight:600}
+.privacy-modal-close{width:100%;padding:10px;border:none;border-radius:8px;background:#085041;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:16px}
 </style>
 </head>
 <body>
@@ -99,7 +134,40 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;back
   </div>
 </div>
 
+<!-- 개인정보처리방침 팝업 -->
+<div class="privacy-modal-bg" id="privacy-modal-bg" onclick="closePrivacyModal(event)">
+  <div class="privacy-modal">
+    <h2>개인정보 수집 및 이용 안내</h2>
+
+    <h3>1. 수집하는 개인정보 항목</h3>
+    <table>
+      <tr><th>항목</th><th>수집목적</th><th>보유기간</th></tr>
+      <tr><td>이름</td><td>선물 발송 확인 (굿네이버스 CRM 대조)</td><td>발송 완료 후 6개월</td></tr>
+      <tr><td>휴대폰번호</td><td>선물 발송 확인 (굿네이버스 CRM 대조)</td><td>발송 완료 후 6개월</td></tr>
+    </table>
+
+    <h3>2. 개인정보 수집 목적</h3>
+    <p>수집된 개인정보는 굿네이버스 정기후원 확인 및 감사 선물 발송 목적으로만 사용되며, 제3자에게 제공되지 않습니다.</p>
+
+    <h3>3. 개인정보의 보유 및 이용기간</h3>
+    <p>선물 발송 완료 후 6개월간 보관 후 파기합니다. 단, 관련 법령에 의한 경우 해당 기간 동안 보관합니다.</p>
+
+    <h3>4. 개인정보 제공 거부 권리</h3>
+    <p>개인정보 제공을 거부하실 수 있으나, 거부 시 선물 발송 서비스를 받으실 수 없습니다.</p>
+
+    <h3>5. 개인정보 처리 위탁</h3>
+    <p>수집된 정보는 Google Sheets에 저장되며, Google의 개인정보처리방침이 적용됩니다.</p>
+
+    <h3>6. 운영 주체</h3>
+    <p>굿네이버스 (www.goodneighbors.kr)</p>
+
+    <button class="privacy-modal-close" onclick="document.getElementById('privacy-modal-bg').classList.remove('show')">확인</button>
+  </div>
+</div>
+
 <div class="wrap">
+
+  <!-- 헤더 -->
   <div class="hero">
     <div class="badge">지역 소상공인 기부 물건</div>
     <h1>마음에 드는 선물을 고르고<br>정기후원에 함께해요</h1>
@@ -112,9 +180,26 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;back
     </div>
   </div>
 
+  <!-- 안내 박스 -->
+  <div class="info-box">
+    <div class="tax-badge">연말정산 세액공제 가능</div>
+    <p>
+      <strong>📦 전시 물건 안내</strong><br>
+      본 물건은 지역 소상공인이 굿네이버스에 <strong>자발적으로 기부한 물품</strong>입니다.<br>
+      굿네이버스 정기후원 가입자에게 <strong>감사의 마음을 담아 드리는 선물</strong>이에요.<br><br>
+      <strong>💚 후원자 혜택</strong><br>
+      굿네이버스를 통한 정기후원은 <strong>연말정산 세액공제</strong> 대상입니다.<br>
+      (소득세법 제34조, 기부금 세액공제 15~30% 적용)<br><br>
+      <strong>🧾 기부자(소상공인) 혜택</strong><br>
+      기부 물품에 대해 <strong>공익법인회계기준에 근거한 기부금영수증</strong>이 발급됩니다.
+    </p>
+  </div>
+
+  <!-- 상품 목록 -->
   <div class="lbl">기부 물건 목록 — 카드를 클릭하면 상세 정보를 볼 수 있어요</div>
   <div class="grid" id="grid"><div class="loading">상품 불러오는 중...</div></div>
 
+  <!-- 장바구니 -->
   <div class="cart-box">
     <div class="cart-top">
       <span>내 장바구니</span>
@@ -123,6 +208,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;back
     <div id="cart-items"><div class="cart-empty">원하는 물건을 선택해주세요</div></div>
   </div>
 
+  <!-- CTA -->
   <div id="cta-area">
     <div class="cta">
       <div class="cta-note">물건 선택 완료 후 아래 버튼을 눌러주세요</div>
@@ -131,13 +217,26 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;back
     </div>
   </div>
 
+  <!-- 안내사항 -->
   <div class="notice">
     <p>
+      ※ 본 사이트는 상품 판매 사이트가 아닙니다<br>
+      ※ 전시 물건은 소상공인이 굿네이버스에 기부한 물품으로, 정기후원 가입자께 드리는 감사 선물입니다<br>
       ※ 기부 물건은 소진 시 마감됩니다<br>
-      ※ 발송은 후원 확인 후 7~14일 이내에 진행됩니다<br>
-      ※ 본 물건은 지역 소상공인의 자발적 기부품으로, 별도 판매 상품이 아닙니다
+      ※ 발송은 후원 확인 후 7~14일 이내에 진행됩니다
     </p>
   </div>
+
+  <!-- 푸터 -->
+  <div class="footer">
+    <p>
+      운영: 사단법인 굿네이버스 | 
+      <a onclick="document.getElementById('privacy-modal-bg').classList.add('show')">개인정보 수집 및 이용 안내</a><br>
+      문의: 굿네이버스 후원안내 1600-1078<br>
+      © GoodNeighbors. All rights reserved.
+    </p>
+  </div>
+
 </div>
 
 <script>
@@ -146,219 +245,160 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzTXOmN5sYElOf3q2DqgPd
 var BASE_URL = 'https://makssook.github.io/goodneighbors-gift/';
 
 var items = [
-  {
-    id: 1,
-    name: '수제 천연비누',
-    donor: '현대중',
-    desc: '진짜 수제 천연비누',
-    img: BASE_URL + '%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-04-23%2016.15.24.png',
-    qty: 10
-  },
-  {
-    id: 2,
-    name: '수제 녹차티백',
-    donor: '곽소이',
-    desc: '진짜 맛있는 차',
-    img: BASE_URL + '%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-04-23%2016.15.29.png',
-    qty: 10
-  },
-  {
-    id: 3,
-    name: '쿠키 선물 세트',
-    donor: '강은경',
-    desc: '진짜 손으로 만든 쿠키',
-    img: BASE_URL + '%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-04-23%2016.15.35.png',
-    qty: 10
-  },
-  {
-    id: 4,
-    name: '지역특산 꿀',
-    donor: '강희경',
-    desc: '엄마의 마음으로 만든 꿀',
-    img: BASE_URL + '%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-04-23%2016.15.54.png',
-    qty: 5
-  },
-  {
-    id: 5,
-    name: '수제 향초',
-    donor: '안진주',
-    desc: '진짜 향초',
-    img: BASE_URL + '%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-04-23%2016.16.04.png',
-    qty: 10
-  }
+  {id:1, name:'수제 천연비누',  donor:'현대중', desc:'진짜 수제 천연비누', img:BASE_URL+'%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-04-23%2016.15.24.png', qty:10},
+  {id:2, name:'수제 녹차티백', donor:'곽소이', desc:'진짜 맛있는 차',      img:BASE_URL+'%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-04-23%2016.15.29.png', qty:10},
+  {id:3, name:'쿠키 선물 세트',donor:'강은경', desc:'진짜 손으로 만든 쿠키',img:BASE_URL+'%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-04-23%2016.15.35.png', qty:10},
+  {id:4, name:'지역특산 꿀',   donor:'강희경', desc:'엄마의 마음으로 만든 꿀',img:BASE_URL+'%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-04-23%2016.15.54.png', qty:5},
+  {id:5, name:'수제 향초',     donor:'안진주', desc:'진짜 향초',           img:BASE_URL+'%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-04-23%2016.16.04.png', qty:10}
 ];
 
 var cart = [];
 var selectedNames = '';
 var currentModalId = null;
 
-// 구글 시트에서 실시간 수량 불러오기
 function loadStock() {
-  var script = document.createElement('script');
-  var cb = 'cb_' + Date.now();
-  window[cb] = function(data) {
-    items.forEach(function(p) {
-      if (data[p.name] !== undefined) {
-        p.qty = parseInt(data[p.name]) || 0;
-      }
-    });
-    render();
-    delete window[cb];
-  };
-  // JSONP 대신 fetch 시도
   fetch(SCRIPT_URL + '?action=getStock')
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-      items.forEach(function(p) {
-        if (data[p.name] !== undefined) {
-          p.qty = parseInt(data[p.name]) || 0;
-        }
+    .then(function(r){return r.json();})
+    .then(function(data){
+      items.forEach(function(p){
+        if(data[p.name] !== undefined) p.qty = parseInt(data[p.name]) || 0;
       });
       render();
     })
-    .catch(function() {
-      // fetch 실패시 기본값으로 렌더
-      render();
-    });
+    .catch(function(){ render(); });
 }
 
 function render() {
   var grid = document.getElementById('grid');
-  grid.innerHTML = items.map(function(p) {
+  grid.innerHTML = items.map(function(p){
     var out = p.qty === 0;
     var low = !out && p.qty <= 3;
     var sel = cart.indexOf(p.id) >= 0;
-    var qc = out ? 'out' : low ? 'low' : 'ok';
-    var qt = out ? '품절' : p.qty + '개 남음';
-    return '<div class="card' + (sel ? ' selected' : '') + (out ? ' sold-out' : '') + '" onclick="openModal(' + p.id + ')">'
-      + '<img class="card-img" src="' + p.img + '" alt="' + p.name + '" onerror="this.style.display=\'none\';this.nextSibling.style.display=\'flex\'">'
-      + '<div class="card-img-placeholder" style="display:none">🎁</div>'
-      + '<div class="card-body">'
-      + '<div class="card-name">' + p.name + '</div>'
-      + '<div class="card-donor">기부: ' + p.donor + '</div>'
-      + '<div class="card-desc">' + p.desc + '</div>'
-      + '<span class="qty ' + qc + '">' + qt + '</span><br>'
-      + (out
-        ? '<button class="pick-btn" disabled onclick="event.stopPropagation()">품절</button>'
-        : '<button class="pick-btn' + (sel ? ' on' : '') + '" onclick="event.stopPropagation();toggle(' + p.id + ')">' + (sel ? '✓ 선택됨' : '담기') + '</button>')
-      + '</div></div>';
+    var qc = out?'out':low?'low':'ok';
+    var qt = out?'품절':p.qty+'개 남음';
+    return '<div class="card'+(sel?' selected':'')+(out?' sold-out':'')+'" onclick="openModal('+p.id+')">'
+      +'<img class="card-img" src="'+p.img+'" alt="'+p.name+'" onerror="this.style.display=\'none\';this.nextSibling.style.display=\'flex\'">'
+      +'<div class="card-img-placeholder" style="display:none">🎁</div>'
+      +'<div class="card-body">'
+      +'<div class="card-name">'+p.name+'</div>'
+      +'<div class="card-donor">기부: '+p.donor+'</div>'
+      +'<div class="card-desc">'+p.desc+'</div>'
+      +'<span class="qty '+qc+'">'+qt+'</span><br>'
+      +(out
+        ?'<button class="pick-btn" disabled onclick="event.stopPropagation()">품절</button>'
+        :'<button class="pick-btn'+(sel?' on':'')+'" onclick="event.stopPropagation();toggle('+p.id+')">'+(sel?'✓ 선택됨':'담기')+'</button>')
+      +'</div></div>';
   }).join('');
 
-  document.getElementById('cnt').textContent = cart.length + '개 선택됨';
+  document.getElementById('cnt').textContent = cart.length+'개 선택됨';
   var el = document.getElementById('cart-items');
-  if (cart.length === 0) {
-    el.innerHTML = '<div class="cart-empty">원하는 물건을 선택해주세요</div>';
+  if(cart.length===0){
+    el.innerHTML='<div class="cart-empty">원하는 물건을 선택해주세요</div>';
   } else {
-    el.innerHTML = cart.map(function(id) {
-      var p = items.filter(function(x){return x.id===id})[0];
-      return '<div class="cart-item"><span>🎁 ' + p.name + '</span>'
-        + '<button class="del-btn" onclick="toggle(' + id + ')">제거</button></div>';
+    el.innerHTML = cart.map(function(id){
+      var p = items.filter(function(x){return x.id===id;})[0];
+      return '<div class="cart-item"><span>🎁 '+p.name+'</span>'
+        +'<button class="del-btn" onclick="toggle('+id+')">제거</button></div>';
     }).join('');
   }
 }
 
 function openModal(id) {
-  var p = items.filter(function(x){return x.id===id})[0];
+  var p = items.filter(function(x){return x.id===id;})[0];
   currentModalId = id;
-  var out = p.qty === 0;
-  var low = !out && p.qty <= 3;
-  var sel = cart.indexOf(id) >= 0;
-  var qc = out ? 'out' : low ? 'low' : 'ok';
-  var qt = out ? '품절' : p.qty + '개 남음';
-
+  var out = p.qty===0, low=!out&&p.qty<=3, sel=cart.indexOf(id)>=0;
+  var qc=out?'out':low?'low':'ok', qt=out?'품절':p.qty+'개 남음';
   document.getElementById('modal-img-area').innerHTML =
-    '<img class="modal-img" src="' + p.img + '" alt="' + p.name + '" onerror="this.style.display=\'none\';this.nextSibling.style.display=\'flex\'">'
-    + '<div class="modal-img-placeholder" style="display:none">🎁</div>';
+    '<img class="modal-img" src="'+p.img+'" alt="'+p.name+'" onerror="this.style.display=\'none\';this.nextSibling.style.display=\'flex\'">'
+    +'<div class="modal-img-placeholder" style="display:none">🎁</div>';
   document.getElementById('modal-name').textContent = p.name;
-  document.getElementById('modal-donor').textContent = '기부: ' + p.donor;
+  document.getElementById('modal-donor').textContent = '기부: '+p.donor;
   document.getElementById('modal-desc').textContent = p.desc;
-  document.getElementById('modal-qty').innerHTML = '<span class="qty ' + qc + '">' + qt + '</span>';
-
-  var pickBtn = document.getElementById('modal-pick-btn');
-  if (out) {
-    pickBtn.textContent = '품절된 상품이에요';
-    pickBtn.disabled = true;
-  } else if (sel) {
-    pickBtn.textContent = '✓ 장바구니에 담겨있어요';
-    pickBtn.className = 'modal-pick on';
-    pickBtn.disabled = false;
-  } else {
-    pickBtn.textContent = '장바구니에 담기';
-    pickBtn.className = 'modal-pick';
-    pickBtn.disabled = false;
-  }
-
+  document.getElementById('modal-qty').innerHTML = '<span class="qty '+qc+'">'+qt+'</span>';
+  var btn = document.getElementById('modal-pick-btn');
+  if(out){ btn.textContent='품절된 상품이에요'; btn.disabled=true; btn.className='modal-pick'; }
+  else if(sel){ btn.textContent='✓ 장바구니에 담겨있어요'; btn.className='modal-pick on'; btn.disabled=false; }
+  else { btn.textContent='장바구니에 담기'; btn.className='modal-pick'; btn.disabled=false; }
   document.getElementById('modal-bg').classList.add('show');
 }
 
-function closeModal(e) {
-  if (e.target === document.getElementById('modal-bg')) {
-    document.getElementById('modal-bg').classList.remove('show');
-  }
+function closeModal(e){
+  if(e.target===document.getElementById('modal-bg')) document.getElementById('modal-bg').classList.remove('show');
 }
 
-function modalToggle() {
-  if (currentModalId) {
-    toggle(currentModalId);
-    openModal(currentModalId);
-  }
+function closePrivacyModal(e){
+  if(e.target===document.getElementById('privacy-modal-bg')) document.getElementById('privacy-modal-bg').classList.remove('show');
 }
 
-function toggle(id) {
-  var p = items.filter(function(x){return x.id===id})[0];
-  if (p.qty === 0) return;
-  var i = cart.indexOf(id);
-  if (i >= 0) { cart.splice(i, 1); } else { cart.push(id); }
+function modalToggle(){
+  if(currentModalId){ toggle(currentModalId); openModal(currentModalId); }
+}
+
+function toggle(id){
+  var p=items.filter(function(x){return x.id===id;})[0];
+  if(p.qty===0) return;
+  var i=cart.indexOf(id);
+  if(i>=0){ cart.splice(i,1); } else { cart.push(id); }
   render();
 }
 
-function donate() {
-  if (cart.length === 0) { alert('물건을 먼저 선택해주세요!'); return; }
-  selectedNames = cart.map(function(id) {
-    return items.filter(function(x){return x.id===id})[0].name;
+function donate(){
+  if(cart.length===0){ alert('물건을 먼저 선택해주세요!'); return; }
+  selectedNames = cart.map(function(id){
+    return items.filter(function(x){return x.id===id;})[0].name;
   }).join(', ');
-
-  window.open(DONATE_URL, '_blank');
-
-  setTimeout(function() {
+  window.open(DONATE_URL,'_blank');
+  setTimeout(function(){
     document.getElementById('cta-area').innerHTML =
       '<div class="step2">'
-      + '<h3>✓ 후원 가입을 완료하셨나요?</h3>'
-      + '<p>아래에 정보를 입력해주시면<br>선택하신 물건을 보내드립니다</p>'
-      + '<div class="step2-items">선택하신 물건: ' + selectedNames + '</div>'
-      + '<label class="inp-label">이름</label>'
-      + '<input class="inp" id="inp-name" type="text" placeholder="홍길동">'
-      + '<label class="inp-label">휴대폰 번호</label>'
-      + '<input class="inp" id="inp-phone" type="tel" placeholder="010-0000-0000">'
-      + '<button class="submit-btn" id="submit-btn" onclick="submitData()">신청 완료하기</button>'
-      + '</div>';
+      +'<h3>✓ 후원 가입을 완료하셨나요?</h3>'
+      +'<p>아래에 정보를 입력해주시면<br>선택하신 물건을 보내드립니다</p>'
+      +'<div class="step2-items">선택하신 물건: '+selectedNames+'</div>'
+      +'<label class="inp-label">이름</label>'
+      +'<input class="inp" id="inp-name" type="text" placeholder="홍길동">'
+      +'<label class="inp-label">휴대폰 번호</label>'
+      +'<input class="inp" id="inp-phone" type="tel" placeholder="010-0000-0000">'
+      +'<div class="privacy-box">'
+      +'<label class="privacy-check">'
+      +'<input type="checkbox" id="privacy-agree">'
+      +'<span class="privacy-check-text">[필수] 개인정보 수집 및 이용에 동의합니다</span>'
+      +'</label>'
+      +'<div class="privacy-detail">'
+      +'수집항목: 이름, 휴대폰번호 | 수집목적: 선물 발송 확인 | 보유기간: 발송 완료 후 6개월<br>'
+      +'<span class="privacy-link" onclick="document.getElementById(\'privacy-modal-bg\').classList.add(\'show\')">개인정보 수집 및 이용 안내 전체보기</span>'
+      +'</div>'
+      +'</div>'
+      +'<button class="submit-btn" id="submit-btn" onclick="submitData()">신청 완료하기</button>'
+      +'</div>';
   }, 800);
 }
 
-function submitData() {
+function submitData(){
   var name = document.getElementById('inp-name').value.trim();
   var phone = document.getElementById('inp-phone').value.trim();
-  if (!name) { alert('이름을 입력해주세요!'); return; }
-  if (!phone) { alert('휴대폰 번호를 입력해주세요!'); return; }
+  var agree = document.getElementById('privacy-agree').checked;
+  if(!name){ alert('이름을 입력해주세요!'); return; }
+  if(!phone){ alert('휴대폰 번호를 입력해주세요!'); return; }
+  if(!agree){ alert('개인정보 수집 및 이용에 동의해주세요!'); return; }
 
   var btn = document.getElementById('submit-btn');
-  btn.disabled = true;
-  btn.textContent = '제출 중...';
+  btn.disabled=true; btn.textContent='제출 중...';
 
   var url = SCRIPT_URL
-    + '?action=submit'
-    + '&name=' + encodeURIComponent(name)
-    + '&phone=' + encodeURIComponent(phone)
-    + '&items=' + encodeURIComponent(selectedNames);
+    +'?action=submit'
+    +'&name='+encodeURIComponent(name)
+    +'&phone='+encodeURIComponent(phone)
+    +'&items='+encodeURIComponent(selectedNames);
 
-  window.open(url, '_blank');
+  window.open(url,'_blank');
 
-  setTimeout(function() {
+  setTimeout(function(){
     document.getElementById('cta-area').innerHTML =
       '<div class="done-box">'
-      + '<h3>🎉 신청 완료!</h3>'
-      + '<p>정기후원 확인 후<br><strong>' + name + '</strong>님께 선물을 보내드릴게요.<br><br>감사합니다 ♥</p>'
-      + '</div>';
+      +'<h3>🎉 신청 완료!</h3>'
+      +'<p>정기후원 확인 후<br><strong>'+name+'</strong>님께 선물을 보내드릴게요.<br><br>'
+      +'후원금은 연말정산 세액공제 대상입니다. 감사합니다 ♥</p>'
+      +'</div>';
   }, 3000);
 }
 
