@@ -103,8 +103,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;back
   </div>
 </div>
 
-<iframe name="hidden-frame" style="display:none"></iframe>
-
 <script>
 var DONATE_URL = 'https://www.goodneighbors.kr/support_pay/regular.gn?campaignCode=5987';
 var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzTXOmN5sYElOf3q2DqgPdhgy2_ODPggF_kUSJrMTa5x9a-Bei2_LIcIIzM21ipCdMkdg/exec';
@@ -193,31 +191,22 @@ function submitData() {
   btn.disabled = true;
   btn.textContent = '제출 중...';
 
-  var form = document.createElement('form');
-  form.method = 'GET';
-  form.action = SCRIPT_URL;
-  form.target = 'hidden-frame';
+  // Apps Script URL을 새 탭으로 직접 열기
+  var url = SCRIPT_URL
+    + '?name=' + encodeURIComponent(name)
+    + '&phone=' + encodeURIComponent(phone)
+    + '&items=' + encodeURIComponent(selectedNames);
 
-  var fields = {name: name, phone: phone, items: selectedNames};
-  Object.keys(fields).forEach(function(k) {
-    var input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = k;
-    input.value = fields[k];
-    form.appendChild(input);
-  });
+  window.open(url, '_blank');
 
-  document.body.appendChild(form);
-  form.submit();
-  document.body.removeChild(form);
-
+  // 3초 후 완료 화면
   setTimeout(function() {
     document.getElementById('cta-area').innerHTML =
       '<div class="done-box">'
       + '<h3>🎉 신청 완료!</h3>'
       + '<p>정기후원 확인 후<br><strong>' + name + '</strong>님께 선물을 보내드릴게요.<br><br>감사합니다 ♥</p>'
       + '</div>';
-  }, 2000);
+  }, 3000);
 }
 
 render();
