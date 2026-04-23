@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>굿네이버스 우리동네 기부 마켓</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;background:#f5f5f0;color:#1a1a1a}
+.wrap{max-width:680px;margin:0 auto;padding:1.5rem 1rem}
+.hero{text-align:center;padding:2rem 1rem;background:#fff;border-radius:16px;margin-bottom:1.5rem;border:1px solid #e8e8e0}
+.badge{display:inline-block;font-size:11px;font-weight:500;padding:4px 12px;border-radius:20px;background:#E1F5EE;color:#085041;margin-bottom:12px}
+.hero h1{font-size:22px;font-weight:700;line-height:1.4;margin-bottom:8px;color:#1a1a1a}
+.hero p{font-size:14px;color:#666;line-height:1.7}
+.steps{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:14px}
+.steps span{font-size:11px;color:#555;background:#f5f5f0;border:1px solid #e0e0d8;padding:4px 10px;border-radius:20px}
+.steps i{font-size:11px;color:#aaa;font-style:normal;line-height:2}
+.lbl{font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px;margin-bottom:1.5rem}
+.card{background:#fff;border:1px solid #e8e8e0;border-radius:14px;overflow:hidden}
+.card.selected{border:2px solid #1D9E75}
+.card-img{height:95px;display:flex;align-items:center;justify-content:center;background:#f9f9f5;font-size:34px}
+.card-body{padding:10px 12px}
+.card-name{font-size:13px;font-weight:600;margin-bottom:3px;color:#1a1a1a}
+.card-donor{font-size:11px;color:#999;margin-bottom:6px}
+.qty{display:inline-block;font-size:11px;font-weight:500;padding:2px 8px;border-radius:10px;margin-bottom:8px}
+.ok{background:#E1F5EE;color:#085041}
+.low{background:#FAEEDA;color:#633806}
+.out{background:#FCEBEB;color:#A32D2D}
+.pick-btn{width:100%;padding:7px;border:1px solid #d0d0c8;border-radius:8px;background:transparent;color:#333;font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;transition:all .15s}
+.pick-btn:hover{background:#f0f0ec}
+.pick-btn.on{background:#1D9E75;color:#fff;border-color:#1D9E75}
+.pick-btn:disabled{opacity:.4;cursor:not-allowed;background:#f5f5f5}
+.cart-box{background:#fff;border:1px solid #e8e8e0;border-radius:14px;padding:1rem 1.25rem;margin-bottom:1.5rem}
+.cart-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.cart-top span:first-child{font-size:14px;font-weight:600;color:#1a1a1a}
+.cart-top span:last-child{font-size:12px;color:#888}
+.cart-empty{font-size:13px;color:#aaa;text-align:center;padding:12px 0}
+.cart-item{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-top:1px solid #f0f0ec;font-size:13px;color:#1a1a1a}
+.del-btn{font-size:11px;color:#aaa;border:1px solid #e0e0d8;border-radius:4px;padding:2px 8px;background:transparent;cursor:pointer;font-family:inherit}
+.del-btn:hover{background:#FCEBEB;color:#A32D2D}
+.cta{background:#085041;border-radius:14px;padding:1.5rem;text-align:center;margin-bottom:1.5rem}
+.cta-note{font-size:12px;color:#5DCAA5;margin-bottom:10px}
+.cta-btn{display:block;width:100%;background:#1D9E75;color:#fff;font-size:15px;font-weight:600;padding:14px;border-radius:10px;border:none;cursor:pointer;font-family:inherit}
+.cta-btn:hover{background:#5DCAA5}
+.cta-sub{font-size:11px;color:#9FE1CB;margin-top:10px;line-height:1.6}
+.step2{background:#fff;border:2px solid #1D9E75;border-radius:14px;padding:1.25rem;margin-bottom:1.5rem}
+.step2 h3{font-size:15px;font-weight:600;color:#085041;margin-bottom:6px;text-align:center}
+.step2 p{font-size:13px;color:#666;margin-bottom:14px;line-height:1.6;text-align:center}
+.step2-items{font-size:12px;background:#E1F5EE;color:#085041;padding:8px 12px;border-radius:8px;margin-bottom:16px;line-height:1.6;text-align:center}
+.inp-label{font-size:12px;font-weight:500;color:#555;margin-bottom:5px;display:block}
+.inp{width:100%;padding:10px 12px;border:1px solid #d0d0c8;border-radius:8px;font-size:14px;font-family:inherit;margin-bottom:12px;color:#1a1a1a}
+.inp:focus{outline:none;border-color:#1D9E75}
+.submit-btn{display:block;width:100%;background:#085041;color:#fff;font-size:14px;font-weight:600;padding:13px;border-radius:10px;border:none;cursor:pointer;font-family:inherit}
+.submit-btn:hover{background:#1D9E75}
+.submit-btn:disabled{opacity:.6;cursor:not-allowed}
+.done-box{background:#E1F5EE;border:2px solid #1D9E75;border-radius:14px;padding:2rem;text-align:center;margin-bottom:1.5rem}
+.done-box h3{font-size:18px;font-weight:700;color:#085041;margin-bottom:8px}
+.done-box p{font-size:13px;color:#0F6E56;line-height:1.7}
+.notice{background:#fff;border:1px solid #e8e8e0;border-radius:10px;padding:14px 16px;margin-top:1rem}
+.notice p{font-size:12px;color:#888;line-height:1.9}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <div class="badge">지역 소상공인 기부 물건</div>
+    <h1>마음에 드는 선물을 고르고<br>정기후원에 함께해요</h1>
+    <p>지역 소상공인이 기부한 물건을 받는 대신,<br>굿네이버스 정기후원에 참여해주세요.</p>
+    <div class="steps">
+      <span>① 물건 선택</span><i>→</i>
+      <span>② 정기후원 가입</span><i>→</i>
+      <span>③ 정보 입력</span><i>→</i>
+      <span>④ 선물 발송</span>
+    </div>
+  </div>
+
+  <div class="lbl">기부 물건 목록</div>
+  <div class="grid" id="grid"></div>
+
+  <div class="cart-box">
+    <div class="cart-top">
+      <span>내 장바구니</span>
+      <span id="cnt">0개 선택됨</span>
+    </div>
+    <div id="cart-items"><div class="cart-empty">원하는 물건을 선택해주세요</div></div>
+  </div>
+
+  <div id="cta-area">
+    <div class="cta">
+      <div class="cta-note">물건 선택 완료 후 아래 버튼을 눌러주세요</div>
+      <button class="cta-btn" onclick="donate()">굿네이버스 정기후원 가입하기 →</button>
+      <div class="cta-sub">후원 가입 완료 후 아래에 정보를 입력해주시면<br>선택하신 물건을 보내드립니다</div>
+    </div>
+  </div>
+
+  <div class="notice">
+    <p>
+      ※ 기부 물건은 소진 시 마감됩니다<br>
+      ※ 발송은 후원 확인 후 7~14일 이내에 진행됩니다<br>
+      ※ 본 물건은 지역 소상공인의 자발적 기부품으로, 별도 판매 상품이 아닙니다
+    </p>
+  </div>
+</div>
+
+<!-- 숨겨진 iframe (form submit 타겟) -->
+<iframe name="hidden-frame" style="display:none"></iframe>
+
+<script>
+var DONATE_URL = 'https://www.goodneighbors.kr/support_pay/regular.gn?campaignCode=5987';
+var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxAsHXsjAkVk8EIoZ0DHPE_lPA4JFwp_p8gMYnzUV28tWIW6yIni3UBAlB6PKx2z3ejfw/exec';
+
+var items = [
+  {id:1, name:'수제 천연 비누 세트',   donor:'○○ 수제비누공방', icon:'🧼', qty:8},
+  {id:2, name:'유기농 녹차 티백 30입', donor:'△△ 다원',         icon:'🍵', qty:3},
+  {id:3, name:'수제 쿠키 선물박스',    donor:'□□ 베이커리',      icon:'🍪', qty:0},
+  {id:4, name:'지역 특산 꿀 200g',     donor:'◇◇ 양봉농장',      icon:'🍯', qty:12},
+  {id:5, name:'핸드메이드 향초',       donor:'○○ 공방',          icon:'🕯️', qty:5},
+  {id:6, name:'로컬 커피 원두 200g',   donor:'△△ 로스터리',      icon:'☕', qty:2}
+];
+
+var cart = [];
+var selectedNames = '';
+
+function render() {
+  var grid = document.getElementById('grid');
+  grid.innerHTML = items.map(function(p) {
+    var out = p.qty === 0;
+    var low = !out && p.qty <= 3;
+    var sel = cart.indexOf(p.id) >= 0;
+    var qc = out ? 'out' : low ? 'low' : 'ok';
+    var qt = out ? '마감' : p.qty + '개 남음';
+    return '<div class="card' + (sel ? ' selected' : '') + '">'
+      + '<div class="card-img">' + p.icon + '</div>'
+      + '<div class="card-body">'
+      + '<div class="card-name">' + p.name + '</div>'
+      + '<div class="card-donor">기부: ' + p.donor + '</div>'
+      + '<span class="qty ' + qc + '">' + qt + '</span><br>'
+      + (out
+        ? '<button class="pick-btn" disabled>마감</button>'
+        : '<button class="pick-btn' + (sel ? ' on' : '') + '" onclick="toggle(' + p.id + ')">' + (sel ? '✓ 선택됨' : '담기') + '</button>')
+      + '</div></div>';
+  }).join('');
+
+  document.getElementById('cnt').textContent = cart.length + '개 선택됨';
+  var el = document.getElementById('cart-items');
+  if (cart.length === 0) {
+    el.innerHTML = '<div class="cart-empty">원하는 물건을 선택해주세요</div>';
+  } else {
+    el.innerHTML = cart.map(function(id) {
+      var p = items.filter(function(x){return x.id===id})[0];
+      return '<div class="cart-item"><span>' + p.icon + ' ' + p.name + '</span>'
+        + '<button class="del-btn" onclick="toggle(' + id + ')">제거</button></div>';
+    }).join('');
+  }
+}
+
+function toggle(id) {
+  var i = cart.indexOf(id);
+  if (i >= 0) { cart.splice(i, 1); } else { cart.push(id); }
+  render();
+}
+
+function donate() {
+  if (cart.length === 0) { alert('물건을 먼저 선택해주세요!'); return; }
+  selectedNames = cart.map(function(id) {
+    return items.filter(function(x){return x.id===id})[0].name;
+  }).join(', ');
+
+  window.open(DONATE_URL, '_blank');
+
+  setTimeout(function() {
+    document.getElementById('cta-area').innerHTML =
+      '<div class="step2">'
+      + '<h3>✓ 후원 가입을 완료하셨나요?</h3>'
+      + '<p>아래에 정보를 입력해주시면<br>선택하신 물건을 보내드립니다</p>'
+      + '<div class="step2-items">선택하신 물건: ' + selectedNames + '</div>'
+      + '<label class="inp-label">이름</label>'
+      + '<input class="inp" id="inp-name" type="text" placeholder="홍길동">'
+      + '<label class="inp-label">휴대폰 번호</label>'
+      + '<input class="inp" id="inp-phone" type="tel" placeholder="010-0000-0000">'
+      + '<button class="submit-btn" id="submit-btn" onclick="submitData()">신청 완료하기</button>'
+      + '</div>';
+  }, 800);
+}
+
+function submitData() {
+  var name = document.getElementById('inp-name').value.trim();
+  var phone = document.getElementById('inp-phone').value.trim();
+  if (!name) { alert('이름을 입력해주세요!'); return; }
+  if (!phone) { alert('휴대폰 번호를 입력해주세요!'); return; }
+
+  var btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = '제출 중...';
+
+  // 숨겨진 form으로 iframe에 제출 (CORS 우회)
+  var form = document.createElement('form');
+  form.method = 'GET';
+  form.action = SCRIPT_URL;
+  form.target = 'hidden-frame';
+
+  var fields = {name: name, phone: phone, items: selectedNames};
+  Object.keys(fields).forEach(function(k) {
+    var input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = k;
+    input.value = fields[k];
+    form.appendChild(input);
+  });
+
+  document.body.appendChild(form);
+  form.submit();
+  document.body.removeChild(form);
+
+  // 2초 후 완료 화면 표시
+  setTimeout(function() {
+    document.getElementById('cta-area').innerHTML =
+      '<div class="done-box">'
+      + '<h3>🎉 신청 완료!</h3>'
+      + '<p>정기후원 확인 후<br><strong>' + name + '</strong>님께 선물을 보내드릴게요.<br><br>감사합니다 ♥</p>'
+      + '</div>';
+  }, 2000);
+}
+
+render();
+</script>
+</body>
+</html>
