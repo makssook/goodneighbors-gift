@@ -16,19 +16,23 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;back
 .steps span{font-size:11px;color:#555;background:#f5f5f0;border:1px solid #e0e0d8;padding:4px 10px;border-radius:20px}
 .steps i{font-size:11px;color:#aaa;font-style:normal;line-height:2}
 .lbl{font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px;margin-bottom:1.5rem}
-.card{background:#fff;border:1px solid #e8e8e0;border-radius:14px;overflow:hidden}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:1.5rem}
+.card{background:#fff;border:1px solid #e8e8e0;border-radius:14px;overflow:hidden;cursor:pointer;transition:all .15s}
+.card:hover{border-color:#1D9E75;transform:translateY(-2px)}
 .card.selected{border:2px solid #1D9E75}
-.card-img{height:95px;display:flex;align-items:center;justify-content:center;background:#f9f9f5;font-size:34px}
-.card-body{padding:10px 12px}
-.card-name{font-size:13px;font-weight:600;margin-bottom:3px;color:#1a1a1a}
+.card.sold-out{opacity:.6;cursor:not-allowed}
+.card-img{width:100%;height:160px;object-fit:cover;display:block}
+.card-img-placeholder{width:100%;height:160px;display:flex;align-items:center;justify-content:center;background:#f9f9f5;font-size:40px}
+.card-body{padding:12px}
+.card-name{font-size:14px;font-weight:600;margin-bottom:3px;color:#1a1a1a}
 .card-donor{font-size:11px;color:#999;margin-bottom:6px}
+.card-desc{font-size:12px;color:#666;margin-bottom:8px;line-height:1.5}
 .qty{display:inline-block;font-size:11px;font-weight:500;padding:2px 8px;border-radius:10px;margin-bottom:8px}
 .ok{background:#E1F5EE;color:#085041}
 .low{background:#FAEEDA;color:#633806}
 .out{background:#FCEBEB;color:#A32D2D}
 .pick-btn{width:100%;padding:7px;border:1px solid #d0d0c8;border-radius:8px;background:transparent;color:#333;font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;transition:all .15s}
-.pick-btn:hover{background:#f0f0ec}
+.pick-btn:hover:not(:disabled){background:#f0f0ec}
 .pick-btn.on{background:#1D9E75;color:#fff;border-color:#1D9E75}
 .pick-btn:disabled{opacity:.4;cursor:not-allowed;background:#f5f5f5}
 .cart-box{background:#fff;border:1px solid #e8e8e0;border-radius:14px;padding:1rem 1.25rem;margin-bottom:1.5rem}
@@ -59,9 +63,42 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;back
 .done-box p{font-size:13px;color:#0F6E56;line-height:1.7}
 .notice{background:#fff;border:1px solid #e8e8e0;border-radius:10px;padding:14px 16px;margin-top:1rem}
 .notice p{font-size:12px;color:#888;line-height:1.9}
+.loading{text-align:center;padding:2rem;color:#888;font-size:14px}
+
+/* 팝업 */
+.modal-bg{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:100;align-items:center;justify-content:center}
+.modal-bg.show{display:flex}
+.modal{background:#fff;border-radius:16px;max-width:400px;width:90%;max-height:85vh;overflow-y:auto}
+.modal-img{width:100%;height:220px;object-fit:cover;border-radius:16px 16px 0 0;display:block}
+.modal-img-placeholder{width:100%;height:220px;display:flex;align-items:center;justify-content:center;background:#f9f9f5;font-size:60px;border-radius:16px 16px 0 0}
+.modal-body{padding:1.25rem}
+.modal-name{font-size:18px;font-weight:700;color:#1a1a1a;margin-bottom:4px}
+.modal-donor{font-size:12px;color:#999;margin-bottom:10px}
+.modal-desc{font-size:14px;color:#444;line-height:1.7;margin-bottom:14px}
+.modal-qty{font-size:13px;margin-bottom:16px}
+.modal-close{width:100%;padding:10px;border:1px solid #d0d0c8;border-radius:8px;background:transparent;color:#555;font-size:13px;cursor:pointer;font-family:inherit;margin-bottom:8px}
+.modal-pick{width:100%;padding:11px;border:none;border-radius:8px;background:#1D9E75;color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
+.modal-pick.on{background:#085041}
+.modal-pick:disabled{opacity:.5;cursor:not-allowed;background:#aaa}
 </style>
 </head>
 <body>
+
+<!-- 상품 상세 팝업 -->
+<div class="modal-bg" id="modal-bg" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <div id="modal-img-area"></div>
+    <div class="modal-body">
+      <div class="modal-name" id="modal-name"></div>
+      <div class="modal-donor" id="modal-donor"></div>
+      <div class="modal-desc" id="modal-desc"></div>
+      <div class="modal-qty" id="modal-qty"></div>
+      <button class="modal-close" onclick="document.getElementById('modal-bg').classList.remove('show')">닫기</button>
+      <button class="modal-pick" id="modal-pick-btn" onclick="modalToggle()"></button>
+    </div>
+  </div>
+</div>
+
 <div class="wrap">
   <div class="hero">
     <div class="badge">지역 소상공인 기부 물건</div>
@@ -75,8 +112,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;back
     </div>
   </div>
 
-  <div class="lbl">기부 물건 목록</div>
-  <div class="grid" id="grid"></div>
+  <div class="lbl">기부 물건 목록 — 카드를 클릭하면 상세 정보를 볼 수 있어요</div>
+  <div class="grid" id="grid"><div class="loading">상품 불러오는 중...</div></div>
 
   <div class="cart-box">
     <div class="cart-top">
@@ -106,18 +143,84 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;back
 <script>
 var DONATE_URL = 'https://www.goodneighbors.kr/support_pay/regular.gn?campaignCode=5987';
 var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzTXOmN5sYElOf3q2DqgPdhgy2_ODPggF_kUSJrMTa5x9a-Bei2_LIcIIzM21ipCdMkdg/exec';
+var BASE_URL = 'https://makssook.github.io/goodneighbors-gift/';
 
 var items = [
-  {id:1, name:'수제 천연 비누 세트',   donor:'○○ 수제비누공방', icon:'🧼', qty:8},
-  {id:2, name:'유기농 녹차 티백 30입', donor:'△△ 다원',         icon:'🍵', qty:3},
-  {id:3, name:'수제 쿠키 선물박스',    donor:'□□ 베이커리',      icon:'🍪', qty:0},
-  {id:4, name:'지역 특산 꿀 200g',     donor:'◇◇ 양봉농장',      icon:'🍯', qty:12},
-  {id:5, name:'핸드메이드 향초',       donor:'○○ 공방',          icon:'🕯️', qty:5},
-  {id:6, name:'로컬 커피 원두 200g',   donor:'△△ 로스터리',      icon:'☕', qty:2}
+  {
+    id: 1,
+    name: '수제 천연비누',
+    donor: '현대중',
+    desc: '진짜 수제 천연비누',
+    img: BASE_URL + '%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-04-23%2016.15.24.png',
+    qty: 10
+  },
+  {
+    id: 2,
+    name: '수제 녹차티백',
+    donor: '곽소이',
+    desc: '진짜 맛있는 차',
+    img: BASE_URL + '%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-04-23%2016.15.29.png',
+    qty: 10
+  },
+  {
+    id: 3,
+    name: '쿠키 선물 세트',
+    donor: '강은경',
+    desc: '진짜 손으로 만든 쿠키',
+    img: BASE_URL + '%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-04-23%2016.15.35.png',
+    qty: 10
+  },
+  {
+    id: 4,
+    name: '지역특산 꿀',
+    donor: '강희경',
+    desc: '엄마의 마음으로 만든 꿀',
+    img: BASE_URL + '%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-04-23%2016.15.54.png',
+    qty: 5
+  },
+  {
+    id: 5,
+    name: '수제 향초',
+    donor: '안진주',
+    desc: '진짜 향초',
+    img: BASE_URL + '%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-04-23%2016.16.04.png',
+    qty: 10
+  }
 ];
 
 var cart = [];
 var selectedNames = '';
+var currentModalId = null;
+
+// 구글 시트에서 실시간 수량 불러오기
+function loadStock() {
+  var script = document.createElement('script');
+  var cb = 'cb_' + Date.now();
+  window[cb] = function(data) {
+    items.forEach(function(p) {
+      if (data[p.name] !== undefined) {
+        p.qty = parseInt(data[p.name]) || 0;
+      }
+    });
+    render();
+    delete window[cb];
+  };
+  // JSONP 대신 fetch 시도
+  fetch(SCRIPT_URL + '?action=getStock')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      items.forEach(function(p) {
+        if (data[p.name] !== undefined) {
+          p.qty = parseInt(data[p.name]) || 0;
+        }
+      });
+      render();
+    })
+    .catch(function() {
+      // fetch 실패시 기본값으로 렌더
+      render();
+    });
+}
 
 function render() {
   var grid = document.getElementById('grid');
@@ -126,16 +229,18 @@ function render() {
     var low = !out && p.qty <= 3;
     var sel = cart.indexOf(p.id) >= 0;
     var qc = out ? 'out' : low ? 'low' : 'ok';
-    var qt = out ? '마감' : p.qty + '개 남음';
-    return '<div class="card' + (sel ? ' selected' : '') + '">'
-      + '<div class="card-img">' + p.icon + '</div>'
+    var qt = out ? '품절' : p.qty + '개 남음';
+    return '<div class="card' + (sel ? ' selected' : '') + (out ? ' sold-out' : '') + '" onclick="openModal(' + p.id + ')">'
+      + '<img class="card-img" src="' + p.img + '" alt="' + p.name + '" onerror="this.style.display=\'none\';this.nextSibling.style.display=\'flex\'">'
+      + '<div class="card-img-placeholder" style="display:none">🎁</div>'
       + '<div class="card-body">'
       + '<div class="card-name">' + p.name + '</div>'
       + '<div class="card-donor">기부: ' + p.donor + '</div>'
+      + '<div class="card-desc">' + p.desc + '</div>'
       + '<span class="qty ' + qc + '">' + qt + '</span><br>'
       + (out
-        ? '<button class="pick-btn" disabled>마감</button>'
-        : '<button class="pick-btn' + (sel ? ' on' : '') + '" onclick="toggle(' + p.id + ')">' + (sel ? '✓ 선택됨' : '담기') + '</button>')
+        ? '<button class="pick-btn" disabled onclick="event.stopPropagation()">품절</button>'
+        : '<button class="pick-btn' + (sel ? ' on' : '') + '" onclick="event.stopPropagation();toggle(' + p.id + ')">' + (sel ? '✓ 선택됨' : '담기') + '</button>')
       + '</div></div>';
   }).join('');
 
@@ -146,13 +251,62 @@ function render() {
   } else {
     el.innerHTML = cart.map(function(id) {
       var p = items.filter(function(x){return x.id===id})[0];
-      return '<div class="cart-item"><span>' + p.icon + ' ' + p.name + '</span>'
+      return '<div class="cart-item"><span>🎁 ' + p.name + '</span>'
         + '<button class="del-btn" onclick="toggle(' + id + ')">제거</button></div>';
     }).join('');
   }
 }
 
+function openModal(id) {
+  var p = items.filter(function(x){return x.id===id})[0];
+  currentModalId = id;
+  var out = p.qty === 0;
+  var low = !out && p.qty <= 3;
+  var sel = cart.indexOf(id) >= 0;
+  var qc = out ? 'out' : low ? 'low' : 'ok';
+  var qt = out ? '품절' : p.qty + '개 남음';
+
+  document.getElementById('modal-img-area').innerHTML =
+    '<img class="modal-img" src="' + p.img + '" alt="' + p.name + '" onerror="this.style.display=\'none\';this.nextSibling.style.display=\'flex\'">'
+    + '<div class="modal-img-placeholder" style="display:none">🎁</div>';
+  document.getElementById('modal-name').textContent = p.name;
+  document.getElementById('modal-donor').textContent = '기부: ' + p.donor;
+  document.getElementById('modal-desc').textContent = p.desc;
+  document.getElementById('modal-qty').innerHTML = '<span class="qty ' + qc + '">' + qt + '</span>';
+
+  var pickBtn = document.getElementById('modal-pick-btn');
+  if (out) {
+    pickBtn.textContent = '품절된 상품이에요';
+    pickBtn.disabled = true;
+  } else if (sel) {
+    pickBtn.textContent = '✓ 장바구니에 담겨있어요';
+    pickBtn.className = 'modal-pick on';
+    pickBtn.disabled = false;
+  } else {
+    pickBtn.textContent = '장바구니에 담기';
+    pickBtn.className = 'modal-pick';
+    pickBtn.disabled = false;
+  }
+
+  document.getElementById('modal-bg').classList.add('show');
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modal-bg')) {
+    document.getElementById('modal-bg').classList.remove('show');
+  }
+}
+
+function modalToggle() {
+  if (currentModalId) {
+    toggle(currentModalId);
+    openModal(currentModalId);
+  }
+}
+
 function toggle(id) {
+  var p = items.filter(function(x){return x.id===id})[0];
+  if (p.qty === 0) return;
   var i = cart.indexOf(id);
   if (i >= 0) { cart.splice(i, 1); } else { cart.push(id); }
   render();
@@ -191,15 +345,14 @@ function submitData() {
   btn.disabled = true;
   btn.textContent = '제출 중...';
 
-  // Apps Script URL을 새 탭으로 직접 열기
   var url = SCRIPT_URL
-    + '?name=' + encodeURIComponent(name)
+    + '?action=submit'
+    + '&name=' + encodeURIComponent(name)
     + '&phone=' + encodeURIComponent(phone)
     + '&items=' + encodeURIComponent(selectedNames);
 
   window.open(url, '_blank');
 
-  // 3초 후 완료 화면
   setTimeout(function() {
     document.getElementById('cta-area').innerHTML =
       '<div class="done-box">'
@@ -209,7 +362,7 @@ function submitData() {
   }, 3000);
 }
 
-render();
+loadStock();
 </script>
 </body>
 </html>
