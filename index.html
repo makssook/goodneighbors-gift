@@ -103,12 +103,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;back
   </div>
 </div>
 
-<!-- 숨겨진 iframe (form submit 타겟) -->
 <iframe name="hidden-frame" style="display:none"></iframe>
 
 <script>
 var DONATE_URL = 'https://www.goodneighbors.kr/support_pay/regular.gn?campaignCode=5987';
-var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxAsHXsjAkVk8EIoZ0DHPE_lPA4JFwp_p8gMYnzUV28tWIW6yIni3UBAlB6PKx2z3ejfw/exec';
+var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzTXOmN5sYElOf3q2DqgPdhgy2_ODPggF_kUSJrMTa5x9a-Bei2_LIcIIzM21ipCdMkdg/exec';
 
 var items = [
   {id:1, name:'수제 천연 비누 세트',   donor:'○○ 수제비누공방', icon:'🧼', qty:8},
@@ -194,7 +193,6 @@ function submitData() {
   btn.disabled = true;
   btn.textContent = '제출 중...';
 
-  // 숨겨진 form으로 iframe에 제출 (CORS 우회)
   var form = document.createElement('form');
   form.method = 'GET';
   form.action = SCRIPT_URL;
@@ -213,7 +211,6 @@ function submitData() {
   form.submit();
   document.body.removeChild(form);
 
-  // 2초 후 완료 화면 표시
   setTimeout(function() {
     document.getElementById('cta-area').innerHTML =
       '<div class="done-box">'
